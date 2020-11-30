@@ -1,0 +1,30 @@
+﻿@page "/"
+
+@inherits IndexBase
+
+<label>Времени, сколько прошло с начала продаж</label>
+<input type="number" value="@DataContext.TimeOfFuture" @onchange="@DataContext.ReloadTable"/>
+
+<table>
+    <thead>
+        <tr>
+            <th>Булочка</th>
+            <th>Начальная цена</th>
+            <th>Текущая цена</th>
+            <th>Следующая цена</th>
+            <th>Снизится через</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var bun in DataContext.Buns)
+        {
+            <tr>
+                <td>@bun.BunType.ToString()</td>
+                <td>@bun.Price</td>
+                <td>@DataContext.PriceForTime(bun)</td>
+                <td>@DataContext.PriceForTime(bun, DataContext.TimeOfFuture + 1)</td>
+                <td>через час :))</td>
+            </tr>
+        }
+    </tbody>
+</table>
